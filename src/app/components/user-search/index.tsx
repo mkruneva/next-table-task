@@ -1,7 +1,7 @@
 import React from "react";
 import { useUserContext } from "../../contexts/user-context";
 
-// import "./users-search.scss";
+import "./users-search.scss";
 
 export const UserSearch = () => {
   const { searchTerm, setSearchTerm, clearSearch } = useUserContext();
