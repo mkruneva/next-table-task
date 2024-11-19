@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table should match snapshot 1`] = `
+<div>
+  <div
+    class="table-wrapper"
+  >
+    <table
+      class="table"
+    >
+      <thead
+        class="table__header"
+      >
+        <tr
+          class="table__header-row"
+        >
+          <th
+            class="table__header-cell"
+          >
+            Name
+          </th>
+          <th
+            class="table__header-cell"
+          >
+            Image
+          </th>
+          <th
+            class="table__header-cell"
+          >
+            Email
+          </th>
+          <th
+            class="table__header-cell"
+          >
+            Phone
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="table__body"
+      >
+        <tr
+          aria-rowindex="0"
+          class="table__row"
+        >
+          <td
+            class="table__cell name"
+          >
+            <span>
+              Emily Johnson
+               
+            </span>
+          </td>
+          <td
+            class="table__cell image"
+          >
+            <img
+              alt="Emily Johnson's avatar"
+              class="avatar"
+              src="https://dummyjson.com/icon/emilys/128"
+            />
+          </td>
+          <td
+            class="table__cell email"
+          >
+            <span>
+              emily.johnson@x.dummyjson.com
+               
+            </span>
+          </td>
+          <td
+            class="table__cell phone"
+          >
+            <span>
+              +81 965-431-3024
+               
+            </span>
+          </td>
+        </tr>
+        <tr
+          aria-rowindex="1"
+          class="table__row"
+        >
+          <td
+            class="table__cell name"
+          >
+            <span>
+              Michael Williams
+               
+            </span>
+          </td>
+          <td
+            class="table__cell image"
+          >
+            <img
+              alt="Michael Williams's avatar"
+              class="avatar"
+              src="https://dummyjson.com/icon/michaelw/128"
+            />
+          </td>
+          <td
+            class="table__cell email"
+          >
+            <span>
+              michael.williams@x.dummyjson.com
+               
+            </span>
+          </td>
+          <td
+            class="table__cell phone"
+          >
+            <span>
+              +49 258-627-6644
+               
+            </span>
+          </td>
+        </tr>
+        <tr
+          aria-rowindex="2"
+          class="table__row"
+        >
+          <td
+            class="table__cell name"
+          >
+            <span>
+              Sophia Brown
+               
+            </span>
+          </td>
+          <td
+            class="table__cell image"
+          >
+            <img
+              alt="Sophia Brown's avatar"
+              class="avatar"
+              src="https://dummyjson.com/icon/sophiab/128"
+            />
+          </td>
+          <td
+            class="table__cell email"
+          >
+            <span>
+              sophia.brown@x.dummyjson.com
+               
+            </span>
+          </td>
+          <td
+            class="table__cell phone"
+          >
+            <span>
+              +81 210-652-2785
+               
+            </span>
+          </td>
+        </tr>
+        <tr
+          aria-rowindex="3"
+          class="table__row"
+        >
+          <td
+            class="table__cell name"
+          >
+            <span>
+              James Davis
+               
+            </span>
+          </td>
+          <td
+            class="table__cell image"
+          >
+            <img
+              alt="James Davis's avatar"
+              class="avatar"
+              src="https://dummyjson.com/icon/jamesd/128"
+            />
+          </td>
+          <td
+            class="table__cell email"
+          >
+            <span>
+              james.davis@x.dummyjson.com
+               
+            </span>
+          </td>
+          <td
+            class="table__cell phone"
+          >
+            <span>
+              +49 614-958-9364
+               
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
