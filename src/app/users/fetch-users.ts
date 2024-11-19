@@ -1,6 +1,5 @@
 import { type User } from "@/app/users/user-types";
-
-const FETCH_USERS_URL = "/api/users";
+import { USERS_URL } from "@/app/constants";
 
 export const fetchUsers = async ({
   searchTerm,
@@ -16,8 +15,8 @@ export const fetchUsers = async ({
   try {
     // Construct the URL with the search term if provided
     const url = searchTerm
-      ? `${FETCH_USERS_URL}?search=${encodeURIComponent(searchTerm)}`
-      : FETCH_USERS_URL;
+      ? `${USERS_URL}?search=${encodeURIComponent(searchTerm)}`
+      : USERS_URL;
     const response = await fetch(url);
 
     if (!response.ok) {

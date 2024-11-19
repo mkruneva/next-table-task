@@ -25,11 +25,17 @@
         justify-content: center;
     }
 
+    // TODO: reusable input style
     &__input {
         padding: 0.5rem;
         border: 1px solid var(--gray-300);
         border-radius: var(--base-border-radius);
         font-size: 1rem;
         width: 100%;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--green-500);
+          }
     }
 }

@@ -13,7 +13,6 @@ import { type User } from "@/app/users/user-types";
 import { fetchUsers } from "@/app/users/fetch-users";
 
 type UserContextType = {
-  users: User[];
   filteredUsers: User[];
   searchTerm: string;
   setSearchTerm: (term: string) => void;
@@ -76,7 +75,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [users]);
 
   const contextValue: UserContextType = {
-    users,
     filteredUsers,
     searchTerm,
     setSearchTerm,

@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const { name } = body;
+  const { name, email, phone, image } = body;
 
   // TODO: additional validation
   if (!name) {
@@ -27,13 +27,11 @@ export async function POST(request: NextRequest) {
   const newUser = {
     id: users.length + 1,
     name,
-    image: `/placeholder.svg?height=40&width=40&text=${encodeURIComponent(
-      name[0]
-    )}`,
-    email: "test.testov@test.test",
-    phone: "+81 965-431-3024",
+    image,
+    email,
+    phone,
   };
 
-  users.push(newUser);
-  return NextResponse.json(newUser, { status: 201 });
+  users.unshift(newUser);
+  return NextResponse.json(users, { status: 201 });
 }
