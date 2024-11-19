@@ -20,7 +20,6 @@ export type User = {
 };
 
 type UserContextType = {
-  users: User[];
   filteredUsers: User[];
   searchTerm: string;
   setSearchTerm: (term: string) => void;
@@ -69,13 +68,13 @@ const fetchUsers = async ({
   }
 };
 
-export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [users, setUsers] = useState<User[]>(initialUsers);
-  const [filteredUsers, setFilteredUsers] = useState<User[]>(users);
+export const UserProvider: React.FC<{
+  children: React.ReactNode;
+  initialUsers: User[];
+  isErrored?: boolean;
+}> = ({ children }) => {
+  const [filteredUsers, setFilteredUsers] = useState<User[]>(initialUsers);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [isErrored, setIsErrored] = useState(false);
 
   const filterUsers = useDebouncedCallback(async (value: string) => {
@@ -92,20 +91,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   }, 300);
 
   useEffect(() => {
-    fetchUsers({
-      onSuccess: (users) => {
-        setUsers(users);
-        setFilteredUsers(users);
-      },
-      onError: (error) => {
-        console.error("Failed to fetch users:", error);
-        setIsErrored(true);
-      },
-      onFinally: () => setIsLoading(false),
-    });
-  }, []);
-
-  useEffect(() => {
     filterUsers(searchTerm);
 
     return () => {
@@ -115,16 +100,15 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const clearSearch = useCallback(() => {
     setSearchTerm("");
-    setFilteredUsers(users);
-  }, [users]);
+    setFilteredUsers(initialUsers);
+  }, []);
 
   const contextValue: UserContextType = {
-    users,
     filteredUsers,
     searchTerm,
     setSearchTerm,
     clearSearch,
-    isLoading,
+    isLoading: !initialUsers,
     isErrored,
   };
 
