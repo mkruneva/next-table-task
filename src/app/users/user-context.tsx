@@ -9,15 +9,8 @@ import React, {
 } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
-const FETCH_USERS_URL = "/api/users";
-
-export type User = {
-  id: number;
-  name: string;
-  image: string;
-  email: string;
-  phone: string;
-};
+import { type User } from "@/app/users/user-types";
+import { fetchUsers } from "@/app/users/fetch-users";
 
 type UserContextType = {
   users: User[];
@@ -32,42 +25,6 @@ type UserContextType = {
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 const initialUsers: User[] = [];
-
-const fetchUsers = async ({
-  searchTerm,
-  onSuccess,
-  onError,
-  onFinally,
-}: {
-  searchTerm?: string;
-  onSuccess: (users: User[]) => void;
-  onError: (error: Error) => void;
-  onFinally?: () => void;
-}): Promise<void> => {
-  try {
-    // Construct the URL with the search term if provided
-    const url = searchTerm
-      ? `${FETCH_USERS_URL}?search=${encodeURIComponent(searchTerm)}`
-      : FETCH_USERS_URL;
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error("Something went wrong");
-    }
-
-    const users: User[] = await response.json();
-    onSuccess(users);
-  } catch (error) {
-    console.error("Failed to fetch users:", error);
-    onError(
-      error instanceof Error ? error : new Error("An unknown error occurred")
-    );
-  } finally {
-    if (onFinally) {
-      onFinally();
-    }
-  }
-};
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

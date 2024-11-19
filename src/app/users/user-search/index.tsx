@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import { useUserContext } from "../../contexts/user-context";
+import { useUserContext } from "../user-context";
 
 import "./users-search.scss";
 
