@@ -1,6 +1,10 @@
 .table-wrapper {
   overflow-x: auto;
-  margin: 20px 0;
+  margin: 2rem 0;
+
+  @media (max-width: 768px) {
+    margin: 0.5rem 0;
+  }
 }
 
 .table {
@@ -9,8 +13,6 @@
 
 .table__header {
   width: 100%;
-
-
 
   &-cell {
     font-weight: bold;
@@ -21,6 +23,10 @@
 
     &:not(:first-child) {
       border-left: 1px solid var(--gray-200);
+    }
+
+    @media (max-width: 768px) {
+      padding: 0.5rem;
     }
   }
 }
@@ -48,15 +54,15 @@
   }
 
   @media (max-width: 768px) {
-    padding: 0.5rem;
+    padding: 0 0.5rem;
   }
 
   &.image {
-    padding: 0.25rem  1.5rem;
+    padding: 0.25rem 1.5rem;
     text-align: center;
 
     @media (max-width: 768px) {
-      padding: 0.25rem 0.5rem;
+      padding: 0 0.5rem;;
     }
   }
 
@@ -70,4 +76,16 @@
       height: 40px;
     }
   }
+}
+
+.table-error {
+  width: 100%;
+  margin: 1rem 0;
+  padding: 2rem;
+  border: 1px solid var(--gray-200);
+  color: var(--red-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--base-border-radius);
 }

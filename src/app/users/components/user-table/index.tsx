@@ -10,6 +10,7 @@ const USERS_TABLE_COLUMNS: TableColumn<User, keyof User>[] = [
     label: 'Image',
     accessor: 'image',
     renderCellContent: ({ cellData: { image, name } }) => {
+      if (!image) return <div className="placeholder-avatar" />
       return (
         <Image
           className="avatar"

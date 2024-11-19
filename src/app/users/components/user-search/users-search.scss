@@ -2,12 +2,12 @@
     max-width: 350px;
     flex-grow: 1;
 
-    &__input-container {
-        position: relative;
+    @media (max-width: 768px) {
+        max-width: 100%;
     }
 
-    &__input {
-        padding-right: 2.5rem;
+    &__input-container {
+        position: relative;
     }
 
     &__button {
@@ -23,19 +23,5 @@
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-
-    // TODO: reusable input style
-    &__input {
-        padding: 0.5rem;
-        border: 1px solid var(--gray-300);
-        border-radius: var(--base-border-radius);
-        font-size: 1rem;
-        width: 100%;
-
-        &:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px var(--green-500);
-          }
     }
 }

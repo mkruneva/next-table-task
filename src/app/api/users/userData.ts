@@ -19,7 +19,6 @@ export const users: User[] = [
     id: 3,
     name: 'Sophia Brown',
     email: 'sophia.brown@x.dummyjson.com',
-    image: 'https://dummyjson.com/icon/sophiab/128',
     phone: '+81 210-652-2785',
   },
   {
