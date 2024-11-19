@@ -1,16 +1,16 @@
-"use client";
+'use client'
 
-import React from "react";
-import { useUserContext } from "../user-context";
+import React from 'react'
+import { useUserContext } from '../../user-context'
 
-import "./users-search.scss";
+import './users-search.scss'
 
 export const UserSearch = () => {
-  const { searchTerm, setSearchTerm, clearSearch } = useUserContext();
+  const { searchTerm, setSearchTerm, clearSearch } = useUserContext()
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
+    setSearchTerm(e.target.value)
+  }
 
   return (
     <div className="search-box">
@@ -33,13 +33,13 @@ export const UserSearch = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const Input = React.forwardRef<
   HTMLInputElement,
   React.InputHTMLAttributes<HTMLInputElement>
->((props, ref) => <input ref={ref} {...props} className="search-box__input" />);
+>((props, ref) => <input ref={ref} {...props} className="search-box__input" />)
 
 const XIcon = () => (
   <svg
@@ -56,5 +56,5 @@ const XIcon = () => (
     <line x1="18" y1="6" x2="6" y2="18"></line>
     <line x1="6" y1="6" x2="18" y2="18"></line>
   </svg>
-);
-Input.displayName = "SearchInput";
+)
+Input.displayName = 'SearchInput'

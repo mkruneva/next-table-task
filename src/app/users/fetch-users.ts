@@ -1,5 +1,5 @@
-import { type User } from "@/app/users/user-types";
-import { USERS_URL } from "@/app/constants";
+import { type User } from '@/app/users/user-types'
+import { USERS_URL } from '@/app/constants'
 
 export const fetchUsers = async ({
   searchTerm,
@@ -16,23 +16,23 @@ export const fetchUsers = async ({
     // Construct the URL with the search term if provided
     const url = searchTerm
       ? `${USERS_URL}?search=${encodeURIComponent(searchTerm)}`
-      : USERS_URL;
-    const response = await fetch(url);
+      : USERS_URL
+    const response = await fetch(url)
 
     if (!response.ok) {
-      throw new Error("Something went wrong");
+      throw new Error('Something went wrong')
     }
 
-    const users: User[] = await response.json();
-    onSuccess(users);
+    const users: User[] = await response.json()
+    onSuccess(users)
   } catch (error) {
-    console.error("Failed to fetch users:", error);
+    console.error('Failed to fetch users:', error)
     onError(
-      error instanceof Error ? error : new Error("An unknown error occurred")
-    );
+      error instanceof Error ? error : new Error('An unknown error occurred')
+    )
   } finally {
     if (onFinally) {
-      onFinally();
+      onFinally()
     }
   }
-};
+}

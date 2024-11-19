@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
-import { SkeletonTable } from "./skeleton-table";
-import "./table.scss";
+import { ReactNode } from 'react'
+import { SkeletonTable } from './skeleton-table'
+import './table.scss'
 
 export interface RenderedCell<T> {
   /** Row data for a cell with a custom renderer */
@@ -51,13 +51,13 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
   isLoading,
   isErrored,
 }: TableProps<T, K>) => {
-  if (isLoading) return <SkeletonTable rows={10} columns={4} />;
+  if (isLoading) return <SkeletonTable rows={10} columns={4} />
 
   // TODO: better styling for error states
-  if (isErrored) return <div>Something went wrong</div>;
+  if (isErrored) return <div>Something went wrong</div>
 
   if (!isLoading && !isErrored && !data?.length)
-    return <div>No users found</div>;
+    return <div>No users found</div>
 
   return (
     <div className="table-wrapper">
@@ -91,8 +91,8 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
 // TODO: TASKS:
 // pagination or react-visibility-sensor (Intersection Observe)

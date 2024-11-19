@@ -1,19 +1,24 @@
-import Link from "next/link";
+import Link from 'next/link'
 
-import { UserProvider } from "./user-context";
-import { UserTable } from "./user-table";
-import { UserSearch } from "./user-search";
+import { UserProvider } from './user-context'
+import { UserTable } from './components/user-table'
+import { UserSearch } from './components/user-search'
 
-import "./users-page.scss";
-export default function UserPage() {
+import './users-page.scss'
+
+export default function UsersPage() {
   return (
     <div className="users-page">
       <h1>Users Table</h1>
-      <Link href="/create-user">Create user</Link>
       <UserProvider>
-        <UserSearch />
+        <div className="users-page-header">
+          <UserSearch />
+          <Link href="/users/create" className="button-link">
+            Create user
+          </Link>
+        </div>
         <UserTable />
       </UserProvider>
     </div>
-  );
+  )
 }

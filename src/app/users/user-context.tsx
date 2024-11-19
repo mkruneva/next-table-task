@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import React, {
   useState,
@@ -6,11 +6,11 @@ import React, {
   useCallback,
   createContext,
   useContext,
-} from "react";
-import { useDebouncedCallback } from "use-debounce";
+} from 'react'
+import { useDebouncedCallback } from 'use-debounce'
 
-import { type User } from "@/app/users/user-types";
-import { fetchUsers } from "@/app/users/fetch-users";
+import { type User } from '@/app/users/user-types'
+import { fetchUsers } from '@/app/users/fetch-users'
 
 type UserContextType = {
   filteredUsers: User[];
@@ -21,58 +21,58 @@ type UserContextType = {
   isErrored: boolean;
 };
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+const UserContext = createContext<UserContextType | undefined>(undefined)
 
-const initialUsers: User[] = [];
+const initialUsers: User[] = []
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [users, setUsers] = useState<User[]>(initialUsers);
-  const [filteredUsers, setFilteredUsers] = useState<User[]>(users);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [isErrored, setIsErrored] = useState(false);
+  const [users, setUsers] = useState<User[]>(initialUsers)
+  const [filteredUsers, setFilteredUsers] = useState<User[]>(users)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
+  const [isErrored, setIsErrored] = useState(false)
 
   const filterUsers = useDebouncedCallback(async (value: string) => {
     fetchUsers({
       searchTerm: value,
       onSuccess: (users) => {
-        setFilteredUsers(users);
+        setFilteredUsers(users)
       },
       onError: (error) => {
-        console.error("Failed to fetch users:", error);
-        setIsErrored(true);
+        console.error('Failed to fetch users:', error)
+        setIsErrored(true)
       },
-    });
-  }, 300);
+    })
+  }, 300)
 
   useEffect(() => {
     fetchUsers({
       onSuccess: (users) => {
-        setUsers(users);
-        setFilteredUsers(users);
+        setUsers(users)
+        setFilteredUsers(users)
       },
       onError: (error) => {
-        console.error("Failed to fetch users:", error);
-        setIsErrored(true);
+        console.error('Failed to fetch users:', error)
+        setIsErrored(true)
       },
       onFinally: () => setIsLoading(false),
-    });
-  }, []);
+    })
+  }, [])
 
   useEffect(() => {
-    filterUsers(searchTerm);
+    filterUsers(searchTerm)
 
     return () => {
-      filterUsers.cancel();
-    };
-  }, [searchTerm, filterUsers]);
+      filterUsers.cancel()
+    }
+  }, [searchTerm, filterUsers])
 
   const clearSearch = useCallback(() => {
-    setSearchTerm("");
-    setFilteredUsers(users);
-  }, [users]);
+    setSearchTerm('')
+    setFilteredUsers(users)
+  }, [users])
 
   const contextValue: UserContextType = {
     filteredUsers,
@@ -81,17 +81,17 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     clearSearch,
     isLoading,
     isErrored,
-  };
+  }
 
   return (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
-  );
-};
+  )
+}
 
 export const useUserContext = () => {
-  const context = useContext(UserContext);
+  const context = useContext(UserContext)
   if (context === undefined) {
-    throw new Error("useUserContext must be used within a UserProvider");
+    throw new Error('useUserContext must be used within a UserProvider')
   }
-  return context;
-};
+  return context
+}

@@ -1,14 +1,14 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import { Table, type TableColumn } from "@/app/components/table";
-import { type User } from "../user-types";
-import { useUserContext } from "../user-context";
+import Image from 'next/image'
+import { Table, type TableColumn } from '@/app/components/table'
+import { type User } from '../../user-types'
+import { useUserContext } from '../../user-context'
 
 const USERS_TABLE_COLUMNS: TableColumn<User, keyof User>[] = [
   {
-    label: "Image",
-    accessor: "image",
+    label: 'Image',
+    accessor: 'image',
     renderCellContent: ({ cellData: { image, name } }) => {
       return (
         <Image
@@ -18,16 +18,16 @@ const USERS_TABLE_COLUMNS: TableColumn<User, keyof User>[] = [
           width={50}
           height={50}
         />
-      );
+      )
     },
   },
-  { label: "Name", accessor: "name" },
-  { label: "Email", accessor: "email" },
-  { label: "Phone", accessor: "phone" },
-];
+  { label: 'Name', accessor: 'name' },
+  { label: 'Email', accessor: 'email' },
+  { label: 'Phone', accessor: 'phone' },
+]
 
 export const UserTable = () => {
-  const { filteredUsers, isErrored, isLoading } = useUserContext();
+  const { filteredUsers, isErrored, isLoading } = useUserContext()
 
   return (
     <Table
@@ -36,5 +36,5 @@ export const UserTable = () => {
       isLoading={isLoading}
       isErrored={isErrored}
     />
-  );
-};
+  )
+}

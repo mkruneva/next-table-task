@@ -1,17 +1,17 @@
-"use client";
+'use client'
 
-import { useState, ChangeEvent, FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import { useState, ChangeEvent, FormEvent } from 'react'
+import { useRouter } from 'next/navigation'
 
-import { fetchUsers } from "@/app/users/fetch-users";
-import { createUser } from "../create-user";
+import { fetchUsers } from '@/app/users/fetch-users'
+import { createUser } from '../create-user'
 
-import "./create-user-form.scss";
+import './create-user-form.scss'
 
 const CustomInput = ({
   label,
   id,
-  type = "text",
+  type = 'text',
   required = false,
   value,
   onChange,
@@ -36,56 +36,56 @@ const CustomInput = ({
       onChange={onChange}
     />
   </div>
-);
+)
 
 const CustomButton = ({
   children,
-  type = "button",
+  type = 'button',
   onClick,
 }: {
   children: React.ReactNode;
-  type?: "button" | "submit" | "reset";
+  type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
 }) => (
   <button type={type} className="create-user-button" onClick={onClick}>
     {children}
   </button>
-);
+)
 
 export const CreateUserForm = () => {
-  const router = useRouter();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const router = useRouter()
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null)
 
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
+      const file = e.target.files[0]
+      const reader = new FileReader()
       reader.onloadend = () => {
-        setPhotoPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+        setPhotoPreview(reader.result as string)
+      }
+      reader.readAsDataURL(file)
     }
-  };
+  }
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     await createUser({
       name,
       email,
       phone,
       image: photoPreview || undefined,
-    });
+    })
     await fetchUsers({
       onSuccess: () => {
-        router.push("/users");
+        router.push('/users')
       },
       // TODO: display something on error
-      onError: (error) => console.log("error fetched users", error),
-    });
-  };
+      onError: (error) => console.log('error fetched users', error),
+    })
+  }
 
   return (
     <div className="create-user-form-container">
@@ -138,5 +138,5 @@ export const CreateUserForm = () => {
         <CustomButton type="submit">Create User</CustomButton>
       </form>
     </div>
-  );
-};
+  )
+}
