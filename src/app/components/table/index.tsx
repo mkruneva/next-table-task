@@ -1,5 +1,7 @@
 import { ReactNode } from 'react'
 import { SkeletonTable } from './skeleton-table'
+import { usePagination } from './pagination/use-pagination'
+import { Pagination } from './pagination'
 import './table.scss'
 
 /**
@@ -57,6 +59,18 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
   isLoading,
   isErrored,
 }: TableProps<T, K>) => {
+  const {
+    currentPage,
+    totalPages,
+    paginatedData: { startIndex, endIndex },
+    handlePageChange,
+  } = usePagination({
+    totalItems: data.length,
+    itemsPerPage: 10,
+  })
+
+  const currentData = data.slice(startIndex, endIndex)
+
   if (isLoading) return <SkeletonTable rows={10} columns={columns.length} />
 
   if (isErrored)
@@ -75,10 +89,10 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
           </tr>
         </thead>
         <tbody className="table__body">
-          {!data?.length ? (
+          {!currentData?.length ? (
             <div className="table-info">No users found</div>
           ) : (
-            data.map((row, index) => (
+            currentData.map((row, index) => (
               <tr key={row.id} className="table__row" aria-rowindex={index + 1}>
                 {columns.map(({ accessor, renderCellContent }) => (
                   <td
@@ -97,6 +111,11 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
           )}
         </tbody>
       </table>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   )
 }
