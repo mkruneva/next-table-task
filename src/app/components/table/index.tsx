@@ -9,7 +9,7 @@ import './table.scss'
  */
 export interface RenderedCell<T> {
   /** Data of the cell that can be used in custom rendering. */
-  cellData: T
+  rowData: T
 }
 
 /**
@@ -40,6 +40,8 @@ export interface TableProps<T, K extends keyof T> {
   isLoading?: boolean
   /** Indicates if there has been an error during data fetching or processing. */
   isErrored?: boolean
+  /** Optional custom row render function */
+  renderRow?: (item: T, index: number, children: ReactNode) => ReactNode
 }
 
 /** Base interface representing a required structure for table row data items. */
@@ -58,6 +60,7 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
   columns,
   isLoading,
   isErrored,
+  renderRow,
 }: TableProps<T, K>) => {
   const {
     currentPage,
@@ -76,6 +79,9 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
   if (isErrored)
     return <div className="table-info error">Something went wrong</div>
 
+  if (!currentData?.length)
+    return <div className="table-info">No users found</div>
+
   return (
     <div className="table-wrapper">
       <table className="table">
@@ -89,26 +95,28 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
           </tr>
         </thead>
         <tbody className="table__body">
-          {!currentData?.length ? (
-            <div className="table-info">No users found</div>
-          ) : (
-            currentData.map((row, index) => (
-              <tr key={row.id} className="table__row" aria-rowindex={index + 1}>
-                {columns.map(({ accessor, renderCellContent }) => (
-                  <td
-                    key={String(accessor)}
-                    className={`table__cell ${accessor as string}`}
-                  >
-                    {renderCellContent ? (
-                      renderCellContent({ cellData: row })
-                    ) : (
-                      <span>{row[accessor] as string}</span>
-                    )}
-                  </td>
-                ))}
-              </tr>
+          {currentData.map((row, index) => {
+            const cells = columns.map(({ accessor, renderCellContent }) => (
+              <td
+                key={String(accessor)}
+                className={`table__cell ${accessor as string}`}
+              >
+                {renderCellContent ? (
+                  renderCellContent({ rowData: row })
+                ) : (
+                  <span>{row[accessor] as string}</span>
+                )}
+              </td>
             ))
-          )}
+
+            return renderRow ? (
+              renderRow(row, index, cells)
+            ) : (
+              <tr key={row.id} className="table__row" aria-rowindex={index + 1}>
+                {cells}
+              </tr>
+            )
+          })}
         </tbody>
       </table>
       <Pagination

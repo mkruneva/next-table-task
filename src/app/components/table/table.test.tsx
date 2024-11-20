@@ -42,7 +42,7 @@ const mockColumns: TableColumn<User, keyof User>[] = [
   {
     label: 'Image',
     accessor: 'image',
-    renderCellContent: ({ cellData: { image, name } }) => {
+    renderCellContent: ({ rowData: { image, name } }) => {
       return <img className="avatar" src={image} alt={`${name}'s avatar`} />
     },
   },

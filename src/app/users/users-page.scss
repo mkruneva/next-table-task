@@ -4,7 +4,6 @@
   gap: 0.25rem;
   margin-top: 1rem;
   width: fit-content;
-  max-width: 70vw;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -47,5 +46,21 @@
     box-shadow:
       0 0 0 2px var(--green-500),
       0 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.back-button {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--gray-500);
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+
+  &:hover {
+    color: var(--gray-400);
+    text-decoration: underline;
   }
 }

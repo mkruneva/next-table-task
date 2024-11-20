@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 
 interface UsePaginationProps {
   totalItems: number
@@ -17,6 +17,16 @@ export function usePagination({
     () => Math.ceil(totalItems / itemsPerPage),
     [totalItems, itemsPerPage]
   )
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [totalItems])
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages)
+    }
+  }, [currentPage, totalPages])
 
   const paginatedData = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage

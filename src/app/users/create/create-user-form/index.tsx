@@ -23,7 +23,7 @@ const CustomInput = ({
   value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }) => (
-  <div className="mb-4 create-user-form">
+  <div className="create-user-form">
     <label htmlFor={id} className="create-user-form__label">
       {label}
     </label>
@@ -83,13 +83,12 @@ export const CreateUserForm = () => {
         router.push('/users')
       },
       // TODO: display something on error
-      onError: (error) => console.log('error fetched users', error),
+      onError: (error) => console.log('error creating user ', error),
     })
   }
 
   return (
     <div className="create-user-form-container">
-      <h2>Create New User</h2>
       <form onSubmit={handleSubmit}>
         <CustomInput
           label="Name"
