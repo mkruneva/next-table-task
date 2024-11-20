@@ -1,50 +1,55 @@
 import { ReactNode } from 'react'
 import { SkeletonTable } from './skeleton-table'
-
 import './table.scss'
 
+/**
+ * Represents the data for a cell with the ability for custom rendering.
+ */
 export interface RenderedCell<T> {
-  /** Row data for a cell with a custom renderer */
+  /** Data of the cell that can be used in custom rendering. */
   cellData: T;
 }
 
+/**
+ * Defines a column in the table.
+ * @template T - Type of the data for the whole row.
+ * @template K - Type of the keys in row data.
+ */
 export interface TableColumn<T, K extends keyof T> {
-  /** Displayed column name */
+  /** The display name of the column. */
   label: string;
-  /** The key for a table data list item */
+  /** The property name in the data from which to pull the cell's content. */
   accessor: K;
-  /** Custom render for each column cell */
+  /** Optional custom renderer for each cell in this column. */
   renderCellContent?: (props: RenderedCell<T>) => ReactNode;
 }
 
 /**
- * Configurable Table interface
- *
- * @template T TableData, Generic table data interface
- * @template K List of keys from the `T` interface
- */ interface TableProps<T, K extends keyof T> {
-  /** Table data to display */
+ * Props for the Configurable Table component.
+ * @template T - General type for data to be displayed in the table.
+ * @template K - Specific keys from data type `T` used in the table.
+ */
+export interface TableProps<T, K extends keyof T> {
+  /** Array of data items to be displayed in the table. */
   data: T[];
-  /** List of columns to display */
+  /** Configuration of columns to be displayed. */
   columns: TableColumn<T, K>[];
-  /**
-   * Is table data loading, boolean
-   */
+  /** Indicates if the table data is currently being loaded. */
   isLoading?: boolean;
-  /**
-   * Are there errors in the request, boolean
-   */
+  /** Indicates if there has been an error during data fetching or processing. */
   isErrored?: boolean;
 }
 
-/** The base interface for table data */
+/** Base interface representing a required structure for table row data items. */
 export interface BaseTableItem {
-  /** A unique id for a table row */
+  /** Unique identifier for each row in the table. Can be a number or string. */
   id: number | string;
 }
 
 /**
- * Configurable table component
+ * Configurable table component that displays data in a tabular format with support for custom cell rendering.
+ * @template T - Ensures type safety for data items which extend BaseTableItem, providing an id.
+ * @template K - Keys from the data type used to access item properties.
  */
 export const Table = <T extends BaseTableItem, K extends keyof T>({
   data,
@@ -54,10 +59,8 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
 }: TableProps<T, K>) => {
   if (isLoading) return <SkeletonTable rows={10} columns={columns.length} />
 
-  if (isErrored) return <div className="table-error">Something went wrong</div>
-
-  if (!isLoading && !isErrored && !data?.length)
-    return <div>No users found</div>
+  if (isErrored)
+    return <div className="table-info error">Something went wrong</div>
 
   return (
     <div className="table-wrapper">
@@ -72,22 +75,26 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
           </tr>
         </thead>
         <tbody className="table__body">
-          {data.map((row, index) => (
-            <tr key={row.id} className="table__row" aria-rowindex={index}>
-              {columns.map(({ accessor, renderCellContent }) => (
-                <td
-                  key={String(accessor)}
-                  className={`table__cell ${accessor as string}`}
-                >
-                  {renderCellContent ? (
-                    renderCellContent({ cellData: row })
-                  ) : (
-                    <span>{row[accessor] as string} </span>
-                  )}
-                </td>
-              ))}
-            </tr>
-          ))}
+          {!data?.length ? (
+            <div className="table-info">No users found</div>
+          ) : (
+            data.map((row, index) => (
+              <tr key={row.id} className="table__row" aria-rowindex={index + 1}>
+                {columns.map(({ accessor, renderCellContent }) => (
+                  <td
+                    key={String(accessor)}
+                    className={`table__cell ${accessor as string}`}
+                  >
+                    {renderCellContent ? (
+                      renderCellContent({ cellData: row })
+                    ) : (
+                      <span>{row[accessor] as string}</span>
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

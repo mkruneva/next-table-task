@@ -4,14 +4,16 @@ import { screen, render } from '@testing-library/react'
 import { type User } from '@/app/users/user-types'
 import { Table, type TableColumn } from './'
 
+const mockUser = {
+  id: 1,
+  name: 'Emily Johnson',
+  email: 'emily.johnson@x.dummyjson.com',
+  image: 'https://dummyjson.com/icon/emilys/128',
+  phone: '+81 965-431-3024',
+}
+
 const mockData: User[] = [
-  {
-    id: 1,
-    name: 'Emily Johnson',
-    email: 'emily.johnson@x.dummyjson.com',
-    image: 'https://dummyjson.com/icon/emilys/128',
-    phone: '+81 965-431-3024',
-  },
+  mockUser,
   {
     id: 2,
     name: 'Michael Williams',
@@ -67,11 +69,21 @@ describe('Table', () => {
     const nameColumn = screen.getByText(/name/i)
     expect(nameColumn).toBeInTheDocument()
 
-    const imageColumn = screen.getByText(/image/i)
+    const imageColumn = screen.getByText(/email/i)
     expect(imageColumn).toBeInTheDocument()
   })
 
-  // TODO: add img test with scr and alt
+  it('should render custom image column', () => {
+    render(<Table data={[mockUser]} columns={mockColumns} />)
+
+    const image = screen.getByAltText(/Emily Johnson's avatar/i)
+
+    expect(image.tagName).toBe('IMG')
+    expect(image).toBeInTheDocument()
+
+    const imageColumn = screen.getByText(/image/i)
+    expect(imageColumn).toBeInTheDocument()
+  })
 
   it('should match snapshot', () => {
     const { container } = render(

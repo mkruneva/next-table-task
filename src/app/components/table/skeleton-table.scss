@@ -1,7 +1,7 @@
   .skeleton-block {
       background-color: var(--gray-200);
       height: 1rem;
-      border-radius: var(--base-border-radius);
+      border-radius: var(--md-border-radius);
       width: 80px;
 
 			animation: fade 1.5s infinite ease-in-out; 
@@ -18,7 +18,7 @@
       }
   
       &--circle {
-				margin: auto 0.5rem;
+				margin: 0.25rem 0.5rem;
 			}
     }
 

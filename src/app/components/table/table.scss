@@ -1,6 +1,7 @@
 .table-wrapper {
   overflow-x: auto;
-  margin: 2rem 0;
+  margin: 1rem 0;
+  width: 100%;
 
   @media (max-width: 768px) {
     margin: 0.5rem 0;
@@ -9,6 +10,7 @@
 
 .table {
   border-collapse: collapse;
+  min-width: 100%;
 }
 
 .table__header {
@@ -17,12 +19,20 @@
   &-cell {
     font-weight: bold;
     text-align: left;
-    padding: 1rem;
+    padding: 0.75rem 1.5rem;
     border-bottom: 1px solid var(--gray-200);
     background-color: var(--gray-100);
 
     &:not(:first-child) {
       border-left: 1px solid var(--gray-200);
+    }
+
+    &:first-child {
+      border-top-left-radius: var(--md-border-radius);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--md-border-radius);
     }
 
     @media (max-width: 768px) {
@@ -78,14 +88,17 @@
   }
 }
 
-.table-error {
+.table-info {
   width: 100%;
   margin: 1rem 0;
   padding: 2rem;
   border: 1px solid var(--gray-200);
-  color: var(--red-500);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--base-border-radius);
+  border-radius: var(--md-border-radius);
+}
+
+.error {
+  color: var(--red-500);
 }
