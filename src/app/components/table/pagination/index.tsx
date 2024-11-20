@@ -5,9 +5,9 @@ export const Pagination = ({
   totalPages,
   onPageChange,
 }: {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
+  currentPage: number
+  totalPages: number
+  onPageChange: (page: number) => void
 }) => {
   return (
     <div className="pagination-container">

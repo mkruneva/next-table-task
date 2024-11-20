@@ -1,34 +1,33 @@
-  .skeleton-block {
-      background-color: var(--gray-200);
-      height: 1rem;
-      border-radius: var(--md-border-radius);
-      width: 80px;
+.skeleton-block {
+  background-color: var(--gray-200);
+  height: 1rem;
+  border-radius: var(--md-border-radius);
+  width: 80px;
 
-			animation: fade 1.5s infinite ease-in-out; 
+  animation: fade 1.5s infinite ease-in-out;
 
-      &--header {
-        height: 1.25rem;
-				width: 100%;
-        background-color: var(--gray-300);
-      }
-  
-      &--text {
-        height: 1rem;
-        width: 180px;
-      }
-  
-      &--circle {
-				margin: 0.25rem 0.5rem;
-			}
-    }
+  &--header {
+    height: 1.25rem;
+    width: 100%;
+    background-color: var(--gray-300);
+  }
 
-		@keyframes fade {
-			0%, 100% {
-				opacity: 1;
-			}
-			50% {
-				opacity: 0.5;
-			}
-		}
+  &--text {
+    height: 1rem;
+    width: 180px;
+  }
 
-  
+  &--circle {
+    margin: 0.25rem 0.5rem;
+  }
+}
+
+@keyframes fade {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

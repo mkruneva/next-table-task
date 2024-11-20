@@ -7,10 +7,10 @@ export const fetchUsers = async ({
   onError,
   onFinally,
 }: {
-  searchTerm?: string;
-  onSuccess: (users: User[]) => void;
-  onError: (error: Error) => void;
-  onFinally?: () => void;
+  searchTerm?: string
+  onSuccess: (users: User[]) => void
+  onError: (error: Error) => void
+  onFinally?: () => void
 }): Promise<void> => {
   try {
     // Construct the URL with the search term if provided

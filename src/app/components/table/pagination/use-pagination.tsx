@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react'
 
 interface UsePaginationProps {
-  totalItems: number;
-  itemsPerPage: number;
-  initialPage?: number;
+  totalItems: number
+  itemsPerPage: number
+  initialPage?: number
 }
 
 export function usePagination({

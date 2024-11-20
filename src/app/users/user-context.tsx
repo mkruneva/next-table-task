@@ -13,13 +13,13 @@ import { type User } from '@/app/users/user-types'
 import { fetchUsers } from '@/app/users/fetch-users'
 
 type UserContextType = {
-  filteredUsers: User[];
-  searchTerm: string;
-  setSearchTerm: (term: string) => void;
-  clearSearch: () => void;
-  isLoading: boolean;
-  isErrored: boolean;
-};
+  filteredUsers: User[]
+  searchTerm: string
+  setSearchTerm: (term: string) => void
+  clearSearch: () => void
+  isLoading: boolean
+  isErrored: boolean
+}
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
 

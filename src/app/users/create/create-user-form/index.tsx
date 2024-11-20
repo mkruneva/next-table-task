@@ -16,12 +16,12 @@ const CustomInput = ({
   value,
   onChange,
 }: {
-  label: string;
-  id: string;
-  type?: string;
-  required?: boolean;
-  value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  label: string
+  id: string
+  type?: string
+  required?: boolean
+  value: string
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }) => (
   <div className="mb-4 create-user-form">
     <label htmlFor={id} className="create-user-form__label">
@@ -43,9 +43,9 @@ const CustomButton = ({
   type = 'button',
   onClick,
 }: {
-  children: React.ReactNode;
-  type?: 'button' | 'submit' | 'reset';
-  onClick?: () => void;
+  children: React.ReactNode
+  type?: 'button' | 'submit' | 'reset'
+  onClick?: () => void
 }) => (
   <button type={type} className="create-user-button" onClick={onClick}>
     {children}

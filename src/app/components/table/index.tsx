@@ -9,7 +9,7 @@ import './table.scss'
  */
 export interface RenderedCell<T> {
   /** Data of the cell that can be used in custom rendering. */
-  cellData: T;
+  cellData: T
 }
 
 /**
@@ -19,11 +19,11 @@ export interface RenderedCell<T> {
  */
 export interface TableColumn<T, K extends keyof T> {
   /** The display name of the column. */
-  label: string;
+  label: string
   /** The property name in the data from which to pull the cell's content. */
-  accessor: K;
+  accessor: K
   /** Optional custom renderer for each cell in this column. */
-  renderCellContent?: (props: RenderedCell<T>) => ReactNode;
+  renderCellContent?: (props: RenderedCell<T>) => ReactNode
 }
 
 /**
@@ -33,19 +33,19 @@ export interface TableColumn<T, K extends keyof T> {
  */
 export interface TableProps<T, K extends keyof T> {
   /** Array of data items to be displayed in the table. */
-  data: T[];
+  data: T[]
   /** Configuration of columns to be displayed. */
-  columns: TableColumn<T, K>[];
+  columns: TableColumn<T, K>[]
   /** Indicates if the table data is currently being loaded. */
-  isLoading?: boolean;
+  isLoading?: boolean
   /** Indicates if there has been an error during data fetching or processing. */
-  isErrored?: boolean;
+  isErrored?: boolean
 }
 
 /** Base interface representing a required structure for table row data items. */
 export interface BaseTableItem {
   /** Unique identifier for each row in the table. Can be a number or string. */
-  id: number | string;
+  id: number | string
 }
 
 /**

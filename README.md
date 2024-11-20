@@ -1,11 +1,11 @@
-This is a project illustrating use of a custom table component. 
-It is using 
+This is a project illustrating use of a custom table component.
+It is using
+
 - nextjs
 - react frameworks
 - scss for styling
 - testing-library/react
 - use-debounce library
-
 
 ## Getting Started
 
@@ -17,24 +17,25 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Alternatively for optimized build run 
+Alternatively for optimized build run
+
 ```bash
 npm run build
 ```
 
 ```bash
  npm run start
- ```
+```
 
- ## Deployed app
+## Deployed app
 
- The app is deployed on vercel [https://next-table-task.vercel.app/](https://next-table-task.vercel.app)
+The app is deployed on vercel [https://next-table-task.vercel.app/](https://next-table-task.vercel.app)
 
- Github repository at [https://github.com/mkruneva/next-table-task](https://github.com/mkruneva/next-table-task)
+Github repository at [https://github.com/mkruneva/next-table-task](https://github.com/mkruneva/next-table-task)
 
------- 
+---
 
-##  Table Component Documentation
+## Table Component Documentation
 
 ### Overview
 
@@ -46,8 +47,8 @@ The `Table` component provides a flexible and customizable table layout for disp
 
 - **data (`T[]`)**: Array of data items to be displayed. Each item must extend from `BaseTableItem`.
 - **columns (`TableColumn<T, K>[]`)**: Configuration for table columns. Each column can define a custom renderer.
-- **isLoading (`boolean`)** *(optional)*: Shows a loading indicator if true. Default is `false`.
-- **isErrored (`boolean`)** *(optional)*: Displays an error message if true. Default is `false`.
+- **isLoading (`boolean`)** _(optional)_: Shows a loading indicator if true. Default is `false`.
+- **isErrored (`boolean`)** _(optional)_: Displays an error message if true. Default is `false`.
 
 #### Interfaces
 
@@ -76,12 +77,12 @@ Defines a minimal structure for data items, requiring an `id` that can be either
 Render a simple table without custom cell rendering:
 
 ```jsx
-<Table 
-  data={userData} 
+<Table
+  data={userData}
   columns={[
-    { label: "ID", accessor: "id" },
-    { label: "Name", accessor: "name" },
-    { label: "Email", accessor: "email" }
+    { label: 'ID', accessor: 'id' },
+    { label: 'Name', accessor: 'name' },
+    { label: 'Email', accessor: 'email' },
   ]}
 />
 ```
@@ -94,11 +95,13 @@ Render a table with custom cell rendering that highlights the name in bold:
 <Table
   data={userData}
   columns={[
-    { label: "ID", accessor: "id" },
-    { label: "Name", accessor: "name", renderCellContent: ({ cellData }) => (<strong>{cellData.name}</strong>) },
-    { label: "Email", accessor: "email" }
+    { label: 'ID', accessor: 'id' },
+    {
+      label: 'Name',
+      accessor: 'name',
+      renderCellContent: ({ cellData }) => <strong>{cellData.name}</strong>,
+    },
+    { label: 'Email', accessor: 'email' },
   ]}
 />
 ```
-
-

@@ -1,4 +1,5 @@
 Table Component Documentation
+
 # Table Component Documentation
 
 ## Overview
@@ -11,8 +12,8 @@ The `Table` component provides a flexible and customizable table layout for disp
 
 - **data (`T[]`)**: Array of data items to be displayed. Each item must extend from `BaseTableItem`.
 - **columns (`TableColumn<T, K>[]`)**: Configuration for table columns. Each column can define a custom renderer.
-- **isLoading (`boolean`)** *(optional)*: Shows a loading indicator if true. Default is `false`.
-- **isErrored (`boolean`)** *(optional)*: Displays an error message if true. Default is `false`.
+- **isLoading (`boolean`)** _(optional)_: Shows a loading indicator if true. Default is `false`.
+- **isErrored (`boolean`)** _(optional)_: Displays an error message if true. Default is `false`.
 
 ### Interfaces
 
@@ -41,12 +42,12 @@ Defines a minimal structure for data items, requiring an `id` that can be either
 Render a simple table without custom cell rendering:
 
 ```jsx
-<Table 
-  data={userData} 
+<Table
+  data={userData}
   columns={[
-    { label: "ID", accessor: "id" },
-    { label: "Name", accessor: "name" },
-    { label: "Email", accessor: "email" }
+    { label: 'ID', accessor: 'id' },
+    { label: 'Name', accessor: 'name' },
+    { label: 'Email', accessor: 'email' },
   ]}
 />
 ```
@@ -59,9 +60,13 @@ Render a table with custom cell rendering that highlights the name in bold:
 <Table
   data={userData}
   columns={[
-    { label: "ID", accessor: "id" },
-    { label: "Name", accessor: "name", renderCellContent: ({ cellData }) => (<strong>{cellData.name}</strong>) },
-    { label: "Email", accessor: "email" }
+    { label: 'ID', accessor: 'id' },
+    {
+      label: 'Name',
+      accessor: 'name',
+      renderCellContent: ({ cellData }) => <strong>{cellData.name}</strong>,
+    },
+    { label: 'Email', accessor: 'email' },
   ]}
 />
 ```
