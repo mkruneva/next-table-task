@@ -7,7 +7,7 @@ import React, {
   createContext,
   useContext,
 } from 'react'
-import { useDebouncedCallback } from 'use-debounce'
+import { useDebounce } from 'use-debounce'
 
 import { type User } from '@/app/users/user-types'
 import { fetchUsers } from '@/app/users/fetch-users'
@@ -33,22 +33,11 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [searchTerm, setSearchTerm] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [isErrored, setIsErrored] = useState(false)
-
-  const filterUsers = useDebouncedCallback(async (value: string) => {
-    fetchUsers({
-      searchTerm: value,
-      onSuccess: (users) => {
-        setFilteredUsers(users)
-      },
-      onError: (error) => {
-        console.error('Failed to fetch users:', error)
-        setIsErrored(true)
-      },
-    })
-  }, 300)
+  const [debouncedFilter] = useDebounce(searchTerm, 300)
 
   useEffect(() => {
     fetchUsers({
+      searchTerm,
       onSuccess: (users) => {
         setUsers(users)
         setFilteredUsers(users)
@@ -59,17 +48,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       },
       onFinally: () => setIsLoading(false),
     })
-  }, [])
-
-  useEffect(() => {
-    if (searchTerm) {
-      filterUsers(searchTerm)
-    }
-
-    return () => {
-      filterUsers.cancel()
-    }
-  }, [searchTerm, filterUsers])
+  }, [debouncedFilter])
 
   const clearSearch = useCallback(() => {
     setSearchTerm('')
