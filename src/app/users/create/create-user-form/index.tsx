@@ -58,6 +58,7 @@ export const CreateUserForm = () => {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [photoPreview, setPhotoPreview] = useState<string | null>(null)
+  const [isErrored, setIsErrored] = useState<boolean>(false)
 
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -72,23 +73,31 @@ export const CreateUserForm = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    await createUser({
-      name,
-      email,
-      phone,
-      image: photoPreview || undefined,
-    })
-    await fetchUsers({
-      onSuccess: () => {
-        router.push('/users')
+    setIsErrored(false)
+    await createUser(
+      {
+        name,
+        email,
+        phone,
+        image: photoPreview || undefined,
       },
-      // TODO: display something on error
-      onError: (error) => console.log('error creating user ', error),
-    })
+      () => {
+        router.push('/users')
+        fetchUsers({})
+      },
+      () => setIsErrored(true)
+    )
   }
 
   return (
     <div className="create-user-form-container">
+      {isErrored || (
+        <div className="create-user-form">
+          <div className="user-form-info error">
+            <h3>Something went wrong creating the user</h3>
+          </div>
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <CustomInput
           label="Name"

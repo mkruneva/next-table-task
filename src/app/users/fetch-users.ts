@@ -8,8 +8,8 @@ export const fetchUsers = async ({
   onFinally,
 }: {
   searchTerm?: string
-  onSuccess: (users: User[]) => void
-  onError: (error: Error) => void
+  onSuccess?: (users: User[]) => void
+  onError?: (error: Error) => void
   onFinally?: () => void
 }): Promise<void> => {
   try {
@@ -20,16 +20,22 @@ export const fetchUsers = async ({
     const response = await fetch(url)
 
     if (!response.ok) {
-      throw new Error('Something went wrong')
+      throw new Error(
+        `Fetching user data request failed with status ${response.status} ${response.statusText}`
+      )
     }
 
     const users: User[] = await response.json()
-    onSuccess(users)
+    if (onSuccess) {
+      onSuccess(users)
+    }
   } catch (error) {
     console.error('Failed to fetch users:', error)
-    onError(
-      error instanceof Error ? error : new Error('An unknown error occurred')
-    )
+    if (onError) {
+      onError(
+        error instanceof Error ? error : new Error('An unknown error occurred')
+      )
+    }
   } finally {
     if (onFinally) {
       onFinally()

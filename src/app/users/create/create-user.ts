@@ -1,13 +1,11 @@
 import { type User } from '@/app/users/user-types'
 import { USERS_URL } from '@/app/constants'
 
-export const createUser = async ({
-  name,
-  email,
-  phone,
-  // TODO: handle empty image
-  image = './placeholder.svg',
-}: Partial<Omit<User, 'id'>>): Promise<void> => {
+export const createUser = async (
+  { name, email, phone, image }: Partial<Omit<User, 'id'>>,
+  onSuccess?: (createdUser: User) => void,
+  onError?: (error: Error | undefined) => void
+): Promise<void> => {
   try {
     const response = await fetch(USERS_URL, {
       method: 'POST',
@@ -18,18 +16,22 @@ export const createUser = async ({
     })
 
     if (!response.ok) {
-      throw new Error('Something went wrong')
+      throw new Error(
+        `Create user request failed with status ${response.status} ${response.statusText}`
+      )
     }
 
-    const updatedUsers = await response.json()
-    console.log('updatedUsers', updatedUsers)
-    // onSuccess(users);
+    const createdUser = await response.json()
+
+    if (onSuccess) {
+      onSuccess(createdUser)
+    }
   } catch (error) {
-    console.error('Failed to fetch users:', error)
-    // onError(
-    //   error instanceof Error ? error : new Error("An unknown error occurred")
-    // );
-  } finally {
-    // redirect
+    console.error('Failed to create a new user:', error)
+    if (onError) {
+      onError(
+        error instanceof Error ? error : new Error('An unknown error occurred')
+      )
+    }
   }
 }

@@ -1,3 +1,9 @@
+.create-user-form-container {
+  background-color: var(--white);
+  max-width: 28rem;
+  margin: 1rem 0;
+}
+
 .create-user-form {
   margin-bottom: 1rem;
   width: 24rem;
@@ -24,7 +30,7 @@
       border: 0;
       font-size: 0.875rem;
       background-color: var(--gray-100);
-      color: var(--green-500);
+      color: var(--green-600);
       transition: background-color 0.2s ease;
 
       &:hover {
@@ -48,7 +54,7 @@
 
 .create-user-button {
   width: 100%;
-  background-color: var(--green-500);
+  background-color: var(--green-600);
   color: var(--white);
   padding: 0.5rem 1rem;
   border-radius: var(--md-border-radius);
@@ -56,7 +62,7 @@
   font-size: 1rem;
 
   &:hover {
-    background-color: var(--green-600);
+    background-color: var(--green-500);
   }
 
   &:focus {
@@ -65,8 +71,17 @@
   }
 }
 
-.create-user-form-container {
-  background-color: var(--white);
-  max-width: 28rem;
+.user-form-info {
+  width: 100%;
   margin: 1rem 0;
+  padding: 2rem;
+  border: 1px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--md-border-radius);
+}
+
+.error {
+  color: var(--red-500);
 }

@@ -62,7 +62,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [])
 
   useEffect(() => {
-    filterUsers(searchTerm)
+    if (searchTerm) {
+      filterUsers(searchTerm)
+    }
 
     return () => {
       filterUsers.cancel()
