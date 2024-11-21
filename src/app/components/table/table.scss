@@ -80,13 +80,15 @@
 
 .table-info {
   width: 100%;
-  margin: 1rem 0;
+  min-width: 60vw;
+  margin-bottom: 1rem;
   padding: 2rem;
   border: 1px solid var(--gray-200);
+  border-top: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--md-border-radius);
+  border-radius: 0 0 var(--md-border-radius) var(--md-border-radius);
 }
 
 .error {

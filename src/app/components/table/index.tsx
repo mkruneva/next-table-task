@@ -76,11 +76,9 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
 
   if (isLoading) return <SkeletonTable rows={10} columns={columns.length} />
 
-  if (isErrored)
+  if (isErrored) {
     return <div className="table-info error">Something went wrong</div>
-
-  if (!currentData?.length)
-    return <div className="table-info">No users found</div>
+  }
 
   return (
     <div className="table-wrapper">
@@ -119,6 +117,7 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
           })}
         </tbody>
       </table>
+      {!currentData?.length && <div className="table-info">No users found</div>}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

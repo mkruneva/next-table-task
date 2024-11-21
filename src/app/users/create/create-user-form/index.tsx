@@ -8,7 +8,7 @@ import { createUser } from '../create-user'
 
 import './create-user-form.scss'
 
-const CustomInput = ({
+const Input = ({
   label,
   id,
   type = 'text',
@@ -74,24 +74,23 @@ export const CreateUserForm = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setIsErrored(false)
-    await createUser(
-      {
+    try {
+      await createUser({
         name,
         email,
         phone,
         image: photoPreview || undefined,
-      },
-      () => {
-        router.push('/users')
-        fetchUsers({})
-      },
-      () => setIsErrored(true)
-    )
+      })
+      fetchUsers()
+      router.push('/users')
+    } catch (error) {
+      setIsErrored(true)
+    }
   }
 
   return (
     <div className="create-user-form-container">
-      {isErrored || (
+      {isErrored && (
         <div className="create-user-form">
           <div className="user-form-info error">
             <h3>Something went wrong creating the user</h3>
@@ -99,14 +98,14 @@ export const CreateUserForm = () => {
         </div>
       )}
       <form onSubmit={handleSubmit}>
-        <CustomInput
+        <Input
           label="Name"
           id="name"
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <CustomInput
+        <Input
           label="Email"
           id="email"
           type="email"
@@ -114,7 +113,7 @@ export const CreateUserForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <CustomInput
+        <Input
           label="Telephone"
           id="phone"
           type="tel"

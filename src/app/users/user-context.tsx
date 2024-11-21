@@ -13,7 +13,7 @@ import { type User } from '@/app/users/user-types'
 import { fetchUsers } from '@/app/users/fetch-users'
 
 type UserContextType = {
-  filteredUsers: User[]
+  users: User[]
   searchTerm: string
   setSearchTerm: (term: string) => void
   clearSearch: () => void
@@ -23,40 +23,42 @@ type UserContextType = {
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
 
-const initialUsers: User[] = []
-
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [users, setUsers] = useState<User[]>(initialUsers)
-  const [filteredUsers, setFilteredUsers] = useState<User[]>(users)
+  const [users, setUsers] = useState<User[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [isErrored, setIsErrored] = useState(false)
   const [debouncedFilter] = useDebounce(searchTerm, 300)
 
   useEffect(() => {
-    fetchUsers({
-      searchTerm,
-      onSuccess: (users) => {
-        setUsers(users)
-        setFilteredUsers(users)
-      },
-      onError: (error) => {
-        console.error('Failed to fetch users:', error)
+    const controller = new AbortController()
+
+    const filterUsers = async () => {
+      try {
+        const data = await fetchUsers({ searchTerm })
+        setUsers(data)
+        setIsLoading(false)
+      } catch (error) {
+        console.error('Failed to load users:', error)
+        setIsLoading(false)
         setIsErrored(true)
-      },
-      onFinally: () => setIsLoading(false),
-    })
+      }
+    }
+    filterUsers()
+
+    return () => {
+      controller.abort()
+    }
   }, [debouncedFilter])
 
   const clearSearch = useCallback(() => {
     setSearchTerm('')
-    setFilteredUsers(users)
   }, [users])
 
   const contextValue: UserContextType = {
-    filteredUsers,
+    users,
     searchTerm,
     setSearchTerm,
     clearSearch,

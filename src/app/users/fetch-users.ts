@@ -1,23 +1,22 @@
 import { type User } from '@/app/users/user-types'
 import { USERS_URL } from '@/app/constants'
 
-export const fetchUsers = async ({
-  searchTerm,
-  onSuccess,
-  onError,
-  onFinally,
-}: {
+interface FetchUsersOptions {
   searchTerm?: string
-  onSuccess?: (users: User[]) => void
-  onError?: (error: Error) => void
-  onFinally?: () => void
-}): Promise<void> => {
+}
+
+export const fetchUsers = async (
+  options: FetchUsersOptions = {}
+): Promise<User[]> => {
+  const { searchTerm } = options
+
   try {
     // Construct the URL with the search term if provided
     const url = searchTerm
       ? `${USERS_URL}?search=${encodeURIComponent(searchTerm)}`
       : USERS_URL
-    const response = await fetch(url)
+
+    const response = await fetch(url.toString())
 
     if (!response.ok) {
       throw new Error(
@@ -25,20 +24,11 @@ export const fetchUsers = async ({
       )
     }
 
-    const users: User[] = await response.json()
-    if (onSuccess) {
-      onSuccess(users)
-    }
+    const data: User[] = await response.json()
+
+    return data
   } catch (error) {
     console.error('Failed to fetch users:', error)
-    if (onError) {
-      onError(
-        error instanceof Error ? error : new Error('An unknown error occurred')
-      )
-    }
-  } finally {
-    if (onFinally) {
-      onFinally()
-    }
+    throw new Error('An unexpected error occurred while fetching users.')
   }
 }
