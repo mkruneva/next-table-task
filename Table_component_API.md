@@ -1,5 +1,3 @@
-Table Component Documentation
-
 # Table Component Documentation
 
 ## Overview
@@ -35,6 +33,10 @@ Defines a single column's configuration in the table, including label, accessor 
 #### `BaseTableItem`
 
 Defines a minimal structure for data items, requiring an `id` that can be either a number or a string.
+
+### Pagination
+
+The table includes simple pagination 
 
 ## Usage Examples
 
