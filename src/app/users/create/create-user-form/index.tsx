@@ -84,6 +84,7 @@ export const CreateUserForm = () => {
       fetchUsers()
       router.push('/users')
     } catch (error) {
+      console.log('error', error)
       setIsErrored(true)
     }
   }
